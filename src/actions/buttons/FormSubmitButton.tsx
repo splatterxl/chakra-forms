@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { useFormContext } from "../../Form";
 
-export default function FormSubmitButton(props: FormSubmitButtonProps) {
+export function FormSubmitButton(props: FormSubmitButtonProps) {
   const { formik } = useFormContext();
 
   return (

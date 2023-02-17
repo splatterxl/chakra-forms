@@ -7,11 +7,11 @@ import React, {
   useRef,
   useState,
 } from "react";
-import createAutocompleteString from "../autocomplete/createAutocompleteString";
+import { createAutocompleteString } from "../autocomplete/createAutocompleteString";
 import type { FormInputAutocomplete } from "../autocomplete/FormInputAutocompleteTypes";
 import { useFormContext, validateField } from "../Form";
 import { SchemaValidator } from "../validate";
-import FormLabel from "./FormLabel";
+import { FormLabel } from "./FormLabel";
 
 const Context = createContext<FormFieldContext>(null as any);
 
@@ -26,7 +26,7 @@ interface FormFieldContext {
   value: string;
 }
 
-export default function FormField<
+export function FormField<
   Component extends React.ComponentType,
   Props = React.ComponentProps<Component>
 >(props: FormFieldProps<Component, Props>) {

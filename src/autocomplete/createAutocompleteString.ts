@@ -1,8 +1,6 @@
 import { FormInputAutocomplete } from "./FormInputAutocompleteTypes";
 
-export default function createAutocompleteString(
-  options: FormInputAutocomplete
-) {
+export function createAutocompleteString(options: FormInputAutocomplete) {
   options = Object.assign(
     {
       section: "",

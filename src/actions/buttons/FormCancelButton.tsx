@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { useFormContext } from "../../Form";
 
-export default function FormCancelButton() {
+export function FormCancelButton() {
   const {
     actions: { cancel },
     i18n: { cancel: cancelString = "Cancel" },

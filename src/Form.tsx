@@ -7,8 +7,8 @@ import {
   useContext,
   useState,
 } from "react";
-import FormButtons from "./actions/FormButtons";
-import FormFooter from "./FormFooter";
+import { FormButtons } from "./actions/FormButtons";
+import { FormFooter } from "./FormFooter";
 import { SchemaValidator, validate } from "./validate";
 
 const Context = createContext<FormContext>(null as any);
@@ -57,7 +57,7 @@ export function useFormContext() {
 }
 
 // TODO: form pages
-export default function Form({
+export function Form({
   children,
   id,
   i18n,

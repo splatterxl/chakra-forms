@@ -1,10 +1,10 @@
 import { VStack } from "@chakra-ui/react";
 import { useFormContext } from "../Form";
-import FormHeading from "../FormHeading";
-import FormCancelButton from "./buttons/FormCancelButton";
-import FormSubmitButton from "./buttons/FormSubmitButton";
+import { FormHeading } from "../FormHeading";
+import { FormCancelButton } from "./buttons/FormCancelButton";
+import { FormSubmitButton } from "./buttons/FormSubmitButton";
 
-export default function FormButtons(props: FormButtonsProps) {
+export function FormButtons(props: FormButtonsProps) {
   const {
     actions: { cancel },
     i18n: { submit },

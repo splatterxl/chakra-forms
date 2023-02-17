@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { useFormContext } from "../../Form";
 import { useFormFieldContext } from "../FormField";
 
-export default function TextInput({
+export function TextInput({
   secret,
   inputRef,
   autocomplete,

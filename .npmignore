@@ -1,0 +1,8 @@
+src/
+
+!dist/
+!types/
+
+.git*
+.editorconfig
+.vscode/

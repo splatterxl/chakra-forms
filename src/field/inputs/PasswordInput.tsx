@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import TextInput, { TextInputProps } from "./TextInput";
+import { TextInput, TextInputProps } from "./TextInput";
 
 export const PasswordField = (props: TextInputProps) => {
   const { isOpen, onToggle } = useDisclosure();
@@ -37,7 +37,5 @@ export const PasswordField = (props: TextInputProps) => {
     </InputGroup>
   );
 };
-
-export default PasswordField;
 
 PasswordField.displayName = "PasswordField";

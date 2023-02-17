@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useFormContext } from "../../Form";
-import TextInput, { TextInputProps } from "./TextInput";
+import { TextInput, TextInputProps } from "./TextInput";
 
 export function SearchbarInput(props: TextInputProps) {
   const context = useFormContext();

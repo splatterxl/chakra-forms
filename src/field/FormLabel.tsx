@@ -1,7 +1,7 @@
 import { FormLabel as ChakraFormLabel } from "@chakra-ui/react";
 import { useFormContext } from "../Form";
 
-export default function FormLabel(props: FormLabelProps) {
+export function FormLabel(props: FormLabelProps) {
   const context = useFormContext();
 
   return (
