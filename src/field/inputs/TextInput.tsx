@@ -27,7 +27,8 @@ export function TextInput({
       variant="outline"
       autoComplete={autocomplete ? autocomplete : undefined}
       aria-required={context?.required}
-      bgColor={useColorModeValue("white", "gray.700")}
+      bgColor={`${useColorModeValue("white", "gray.700")} !important`}
+      className="splt-form-input"
       {...props}
     />
   );
