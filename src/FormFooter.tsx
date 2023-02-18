@@ -1,10 +1,6 @@
 import { Box } from "@chakra-ui/react";
+import { PropsWithChildren } from "react";
 
-export function FormFooter({ children, br }: FormFooterProps) {
+export function FormFooter({ children }: PropsWithChildren) {
   return <Box w="full">{children}</Box>;
-}
-
-interface FormFooterProps {
-  children: React.ReactNode;
-  br?: number;
 }

@@ -1,3 +1,3 @@
-# @splatterxl/chakra-forms
+# chakra-forms
 
 Simple reusable form library for my projects.

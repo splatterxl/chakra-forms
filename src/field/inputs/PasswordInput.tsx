@@ -37,5 +37,3 @@ export const PasswordInput = (props: TextInputProps) => {
     </InputGroup>
   );
 };
-
-PasswordInput.displayName = "PasswordField";

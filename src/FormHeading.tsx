@@ -1,14 +1,26 @@
 import {
-  BoxProps,
   Heading,
   HeadingProps,
+  StackProps,
   Text,
   TextProps,
   VStack,
 } from "@chakra-ui/react";
 import { useFormContext } from "./Form";
 
-export function FormHeading(props: BoxProps) {
+/**
+ * Container for the form heading.
+ * @param props Normal stack props for Chakra UI
+ *
+ * @example
+ * ```tsx
+ * <FormHeading>
+ *   <FormTitle>Login</FormTitle>
+ *   <FormDescription>Log into your account here.</FormTitle>
+ * </FormHeading>
+ * ```
+ */
+export function FormHeading(props: StackProps) {
   return (
     <VStack spacing={0} px={0} pb={3} pt={2} width="full" {...props}>
       {props.children}
@@ -16,13 +28,13 @@ export function FormHeading(props: BoxProps) {
   );
 }
 
-FormHeading.Title = function Title(props: HeadingProps) {
+export function FormTitle(props: HeadingProps) {
   return (
     <Heading fontWeight={900} textAlign="center" width="full" {...props} />
   );
-};
+}
 
-FormHeading.Error = function Error(props: Omit<TextProps, "children">) {
+export function FormError(props: Omit<TextProps, "children">) {
   const {
     error,
     fields: { __root__ },
@@ -42,9 +54,9 @@ FormHeading.Error = function Error(props: Omit<TextProps, "children">) {
       {(error ?? __root__.error)!.toString?.() ?? error}
     </Text>
   );
-};
+}
 
-FormHeading.Description = function Description(props: TextProps) {
+export function FormDescription(props: TextProps) {
   return (
     <Text
       marginBottom={0}
@@ -56,4 +68,4 @@ FormHeading.Description = function Description(props: TextProps) {
       {...props}
     />
   );
-};
+}

@@ -56,7 +56,41 @@ export function useFormContext() {
   return useContext(Context);
 }
 
-// TODO: form pages
+/**
+ * The main hub for the form. This component manages form state, the underlying formik instance and basic styling, etc.
+ *
+ * @example
+  <Form
+ 		id="login"
+ 		onSubmit={(values: { username: string; password: string; }) => {}}
+ 		initialFocus="username"
+ 	>
+ 		<FormBody>
+ 			<FormField
+ 				as={TextInput}
+ 				id="username"
+ 				label="Email"
+ 				defaultValue="test@example.com"
+ 				autocomplete={{
+ 					type: FormInputAutocompleteTypes.USERNAME
+ 				}}
+ 				schema={{ email: true }}
+ 				required
+ 			/>
+ 			<FormField
+ 				as={PasswordInput}
+ 				id="password"
+ 				label="Password"
+ 				autocomplete={{
+ 					type: FormInputAutocompleteTypes.CURRENT_PASSWORD
+ 				}}
+ 				required
+ 			/>
+ 		</FormBody>
+ 	</Form>
+ * @param props Settings for this form instance.
+ * @returns A fully rendered form component you can drop into the page, with submitting, validation, etc. sorted for you.
+ */
 export function Form({
   children,
   id,
@@ -180,7 +214,7 @@ export function Form({
       >
         {children}
         {!customButtons ? (
-          <FormFooter br={props.borderRadius as number}>
+          <FormFooter>
             <FormButtons loading={formik.isSubmitting} />
           </FormFooter>
         ) : null}
@@ -227,7 +261,7 @@ export function validateField({
   }
 }
 
-interface FormProps extends Omit<FlexProps, "onSubmit"> {
+export interface FormProps extends Omit<FlexProps, "onSubmit"> {
   children: React.ReactNode;
   id: string;
 

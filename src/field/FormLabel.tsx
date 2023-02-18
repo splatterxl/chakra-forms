@@ -14,6 +14,6 @@ export function FormLabel(props: FormLabelProps) {
 interface FormLabelProps {
   for: string;
   text: string;
-  // this field isn't sent, it's kept for if we decide to redesign errors to be in labels again
+  // this field isn"t sent, it"s kept for if we decide to redesign errors to be in labels again
   error?: string | null;
 }
