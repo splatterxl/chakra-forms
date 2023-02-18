@@ -1,7 +1,9 @@
 import { Box, FormControl } from "@chakra-ui/react";
 import React, {
   ChangeEvent,
+  ComponentType,
   createContext,
+  RefObject,
   useContext,
   useEffect,
   useRef,
@@ -26,10 +28,19 @@ interface FormFieldContext {
   value: string;
 }
 
+export interface FormFieldInputProps {
+  onChange: (event: ChangeEvent) => void;
+  defaultValue?: string;
+  value?: string;
+  placeholder?: string;
+  autocomplete?: string;
+  inputRef: RefObject<any>;
+}
+
 export function FormField<
-  Component extends React.ComponentType,
-  Props = React.ComponentProps<Component>
->(props: FormFieldProps<Component, Props>) {
+  Component extends React.ComponentType<FormFieldInputProps>,
+  Props extends FormFieldInputProps = React.ComponentProps<Component>
+>(props: FormFieldProps<Props, Component>) {
   const context = useFormContext(),
     fieldData = context.fields[props.id],
     [hasRegistered, setHasRegistered] = useState(false),
@@ -75,6 +86,7 @@ export function FormField<
         }}
       >
         {props.label && <FormLabel for={props.id} text={props.label} />}
+
         {/* @ts-ignore */}
         <props.as
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -114,8 +126,8 @@ export function FormField<
 }
 
 interface FormFieldProps<
-  Component extends React.ComponentType,
-  ComponentProps
+  ComponentProps,
+  Component extends React.ComponentType<FormFieldInputProps>
 > {
   id: string;
   children?: React.ReactNode;
@@ -128,7 +140,7 @@ interface FormFieldProps<
   disabled?: boolean;
   validate?: (value: string) => void;
   schema?: SchemaValidator;
-  as: Component;
+  as: ComponentType<ComponentProps>;
   inputProps?: Component extends React.ComponentType<infer P>
     ? P
     : ComponentProps;

@@ -4,6 +4,7 @@ export * from "./field/FormLabel";
 export * from "./field/inputs/PasswordInput";
 export * from "./field/inputs/Switch";
 export * from "./field/inputs/TextInput";
+export * from "./field/inputs/SearchbarInput";
 export * from "./Form";
 export * from "./FormBody";
 export * from "./FormFooter";
