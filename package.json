@@ -1,6 +1,6 @@
 {
   "name": "@splatterxl/chakra-forms",
-  "version": "1.4.0",
+  "version": "1.6.0",
   "description": "Simple reusable form library based on Chakra UI + React",
   "main": "dist/index.js",
   "types": "./types/index.d.ts",

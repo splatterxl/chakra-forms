@@ -1,5 +1,5 @@
-import { Input, useColorModeValue, type InputProps } from "@chakra-ui/react";
-import { useEffect, useRef } from "react";
+import { Input, useColorMode, type InputProps } from "@chakra-ui/react";
+import { useRef } from "react";
 import { useFormContext } from "../../Form";
 import { useFormFieldContext } from "../FormField";
 
@@ -13,11 +13,14 @@ export function TextInput({
     formContext = useFormContext(),
     ref = useRef<HTMLElement>();
 
-  useEffect(() => {
-    if (ref.current && formContext.options.initialFocus === context?.id) {
-      ref.current.focus();
-    }
-  }, []);
+  const { colorMode } = useColorMode();
+
+  const color =
+    colorMode === "light"
+      ? "white"
+      : colorMode === "dark"
+      ? "gray.800"
+      : undefined;
 
   return (
     <Input
@@ -27,7 +30,7 @@ export function TextInput({
       variant="outline"
       autoComplete={autocomplete ? autocomplete : undefined}
       aria-required={context?.required}
-      bgColor={`${useColorModeValue("white", "gray.700")} !important`}
+      bgColor={`${color} !important`}
       className="splt-form-input"
       {...props}
     />
