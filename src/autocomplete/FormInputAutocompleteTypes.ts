@@ -19,7 +19,7 @@ export interface FormInputAutocomplete {
 /**
  * @see https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls%3A-the-autocomplete-attribute
  */
-export const enum FormInputAutocompleteTypes {
+export enum FormInputAutocompleteTypes {
   //#region PII
   //#region Name
   /**
@@ -66,7 +66,7 @@ export const enum FormInputAutocompleteTypes {
   //#endregion
   //#region Accounts
   /**
-   * A username.
+   * A username or email address used for logging in.
    * @example timbl
    */
   USERNAME = "username",
