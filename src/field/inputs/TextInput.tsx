@@ -1,4 +1,4 @@
-import { Input, type InputProps } from "@chakra-ui/react";
+import { Input, useColorModeValue, type InputProps } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 import { useFormContext } from "../../Form";
 import { useFormFieldContext } from "../FormField";
@@ -27,6 +27,7 @@ export function TextInput({
       variant="outline"
       autoComplete={autocomplete ? autocomplete : undefined}
       aria-required={context?.required}
+      bgColor={useColorModeValue("white", "gray.700")}
       {...props}
     />
   );
