@@ -8,23 +8,50 @@ import {
   useState,
 } from "react";
 import { FormButtons } from "./actions/FormButtons";
-import { FormFooter } from "./FormFooter";
 import { SchemaValidator, validate } from "./validate";
 
 const Context = createContext<FormContext>(null as any);
 
 export interface FormContext {
+  /**
+   * The ID of this form
+   */
   id: string;
 
+  /**
+   * The internal Formik instance
+   */
   formik: FormikProps<Record<string, any>>;
+  /**
+   * Handle the changing of a field's value
+   *
+   * @param id The field's ID
+   */
   handleChange: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
+  /**
+   * The current values associated with a field.
+   */
   get values(): Record<string, string>;
 
+  /**
+   * Global error associated with the form.
+   *
+   * @see FormError
+   */
   error: string | Error | null;
+  /**
+   * Set the global error for the form.
+   */
   setError: (error: string | null) => void;
 
+  /**
+   * Whether the submit action for this form is still processing.
+   */
   loading: boolean;
 
+  /**
+   * Field data for each field.
+   */
   fields: {
     [key: string]: {
       error?: string | null;
@@ -33,17 +60,29 @@ export interface FormContext {
       schema?: SchemaValidator;
     };
   };
+  /**
+   * Set the field data for a field. Unrecommended that you tamper with this.
+   */
   setField: (
     id: string,
     value: string,
     options?: FormContext["fields"]["string"]
   ) => void;
+  /**
+   * Set the error for a field.
+   */
   setFieldError: (id: string, error: string | null) => void;
 
+  /**
+   * This property provides a way to cancel the form and call `onCancel`.
+   */
   actions: {
     cancel?: () => void;
   };
 
+  /**
+   * The custom button labels provided in {@link FormProps}
+   */
   i18n: NonNullable<FormProps["i18n"]>;
 
   options: {
@@ -99,7 +138,6 @@ export function Form({
   onCancel,
   onSubmit,
 
-  showRequiredSign = true,
   initialFocus,
   customButtons = false,
 
@@ -172,7 +210,6 @@ export function Form({
       cancel: onCancel,
     },
     options: {
-      showRequiredSign,
       initialFocus,
     },
   });
@@ -213,11 +250,7 @@ export function Form({
         {...props}
       >
         {children}
-        {!customButtons ? (
-          <FormFooter>
-            <FormButtons loading={formik.isSubmitting} />
-          </FormFooter>
-        ) : null}
+        {!customButtons ? <FormButtons loading={formik.isSubmitting} /> : null}
       </Flex>
     </Context.Provider>
   );
@@ -262,20 +295,48 @@ export function validateField({
 }
 
 export interface FormProps extends Omit<FlexProps, "onSubmit"> {
-  children: React.ReactNode;
+  /**
+   * Unique identifier for this form.
+   */
   id: string;
 
+  /**
+   * Button internationalised values. Configure these to use customised labels for the form buttons.
+   *
+   * @example
+   * {
+   * 	 cancel: "Cancel",
+   * 	 submit: "Submit",
+   * 	 required: "This field is required."
+   * }
+   */
   i18n?: {
     cancel?: string;
     submit?: string;
-    required?: string | Record<string, string>;
-    invalid?: string | Record<string, string>;
+    required?: string;
   };
 
+  /**
+   * Handle cancellation of the form. The cancel button is only shown if this function is defined.
+   */
   onCancel?: () => void;
+  /**
+   * Handle submission of the form. It's let up to you to statically type the `values` parameter due to
+   * technical limitations.
+   *
+   * @example
+   * (values: { username: string; password: string; }) => {
+   *	 console.log(values.username, values.password)
+   * }
+   */
   onSubmit: (this: FormContext, values: Record<string, string>) => void;
 
-  showRequiredSign?: boolean;
+  /**
+   * The ID of the field that should be initially focused when the form is mounted.
+   */
   initialFocus?: string;
+  /**
+   * Whether to hide the default buttons and let you implement them seperately. This is best for wide forms to avoid a super wide submit button.
+   */
   customButtons?: boolean;
 }

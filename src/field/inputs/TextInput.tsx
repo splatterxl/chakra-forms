@@ -3,6 +3,11 @@ import { useRef } from "react";
 import { useFormContext } from "../../Form";
 import { useFormFieldContext } from "../FormField";
 
+/**
+ * Normal Chakra UI text input.
+ *
+ * @param props Accepts any Chakra UI property.
+ */
 export function TextInput({
   secret,
   inputRef,

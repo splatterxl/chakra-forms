@@ -1,21 +1,25 @@
 import { Box, HStack, Switch, SwitchProps, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useFormContext } from "../../Form";
-import { useFormFieldContext } from "../FormField";
+import { FormFieldInputProps, useFormFieldContext } from "../FormField";
 
+/**
+ * Experimental switch element. Untested so far.
+ *
+ * @param props Accepts any Chakra UI Switch property
+ */
 export const SwitchInput: React.FC<
   SwitchProps & {
     // this is a hack to actually get a label instead of it being passed to a <FormLabel /> :husk:
     placeholder?: string;
     icon?: React.ReactNode;
-    set?: boolean;
-  }
-> = ({ placeholder: label, icon, set = false }) => {
+  } & FormFieldInputProps
+> = ({ placeholder: label, icon, defaultValue = false, ...props }) => {
   const context = useFormFieldContext(),
     formContext = useFormContext();
 
   useEffect(() => {
-    formContext.setField(context.id, set.toString());
+    formContext.setField(context.id, defaultValue.toString());
   }, []);
 
   return (
@@ -31,7 +35,9 @@ export const SwitchInput: React.FC<
         id={`${formContext.id}-${context.id}`}
         colorScheme="green"
         _checked={{ bg: "green.600" }}
-        defaultChecked={set}
+        defaultChecked={
+          defaultValue === "false" ? false : Boolean(defaultValue)
+        }
       />
     </HStack>
   );

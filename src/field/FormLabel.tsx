@@ -1,6 +1,10 @@
 import { FormLabel as ChakraFormLabel } from "@chakra-ui/react";
 import { useFormContext } from "../Form";
 
+/**
+ * Used internally to show the field label in {@link FormField}
+ * @internal
+ */
 export function FormLabel(props: FormLabelProps) {
   const context = useFormContext();
 

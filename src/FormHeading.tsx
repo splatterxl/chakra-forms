@@ -34,6 +34,12 @@ export function FormTitle(props: HeadingProps) {
   );
 }
 
+/**
+ * Shows the end user a red text element containing the error encountered during processing of the form.
+ *
+ * This is automatically included in a normal form without `customButtons` set, however it must be inserted if that has
+ * been changed.
+ */
 export function FormError(props: Omit<TextProps, "children">) {
   const {
     error,
@@ -56,6 +62,9 @@ export function FormError(props: Omit<TextProps, "children">) {
   );
 }
 
+/**
+ * Simple text element for form descriptions.
+ */
 export function FormDescription(props: TextProps) {
   return (
     <Text

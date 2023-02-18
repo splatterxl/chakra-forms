@@ -11,4 +11,4 @@ const validators = {
 
 export default validators;
 
-export type StringValidator = Record<keyof typeof validators, boolean>;
+export type StringValidator = { email: boolean; numeric: boolean };
