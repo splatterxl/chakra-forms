@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { TextInput, TextInputProps } from "./TextInput";
 
-export const PasswordField = (props: TextInputProps) => {
+export const PasswordInput = (props: TextInputProps) => {
   const { isOpen, onToggle } = useDisclosure();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -38,4 +38,4 @@ export const PasswordField = (props: TextInputProps) => {
   );
 };
 
-PasswordField.displayName = "PasswordField";
+PasswordInput.displayName = "PasswordField";
