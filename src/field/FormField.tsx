@@ -1,4 +1,4 @@
-import { Box, FormControl } from "@chakra-ui/react";
+import { Box, FormControl, FormControlProps } from "@chakra-ui/react";
 import React, {
   ChangeEvent,
   ComponentType,
@@ -57,33 +57,51 @@ export interface FormFieldInputProps {
  * @param props Options for this field.
  */
 export function FormField<
-  Component extends React.ComponentType<FormFieldInputProps>,
-  Props extends FormFieldInputProps = React.ComponentProps<Component>
->(props: FormFieldProps<Props, Component>) {
+  Component extends React.ComponentType,
+  Props = React.ComponentProps<Component>
+>({
+  as: As,
+  id,
+  value,
+  defaultValue,
+  required,
+  validate,
+  schema,
+  disabled,
+  placeholder,
+  label,
+  setValue,
+  autocomplete,
+  children,
+  error,
+  inputProps,
+  ...props
+}: FormFieldProps<Props, Component> &
+  Omit<FormControlProps, keyof FormFieldProps<Props, Component>>) {
   const context = useFormContext(),
-    fieldData = context.fields[props.id],
+    fieldData = context.fields[id],
     [hasRegistered, setHasRegistered] = useState(false),
-    [state, setState] = useState(props.defaultValue || ""),
+    [state, setState] = useState(defaultValue || ""),
     ref = useRef(null);
 
   useEffect(() => {
     if (!hasRegistered) {
       setHasRegistered(true);
 
-      context.setField(props.id, props.value ?? props.defaultValue ?? "", {
-        required: props.required,
-        validate: props.validate,
-        schema: props.schema,
+      context.setField(id, value ?? defaultValue ?? "", {
+        required: required,
+        validate: validate,
+        schema: schema,
       });
     }
 
-    if (props.error) {
-      context.setFieldError(props.id, props.error);
+    if (error) {
+      context.setFieldError(id, error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!props.as) {
+  if (!As) {
     throw new Error("FormField must have an `as` prop");
   }
 
@@ -91,54 +109,54 @@ export function FormField<
 
   return (
     <FormControl
-      isDisabled={props.disabled}
+      isDisabled={disabled}
       isInvalid={!!fieldData?.error}
-      isRequired={props.required}
+      isRequired={required}
       marginTop={0}
+      {...props}
     >
       <Context.Provider
         value={{
-          id: props.id,
-          placeholder: props.placeholder,
-          required: props.required,
-          value: props.value ?? state,
+          id: id,
+          placeholder: placeholder,
+          required: required,
+          value: value ?? state,
         }}
       >
-        {props.label && <FormLabel for={props.id} text={props.label} />}
+        {label && <FormLabel for={id} text={label} />}
 
         {/* @ts-ignore */}
-        <props.as
+        <As
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            context.handleChange(event, props.id);
-            (props.setValue ?? setState)(event.target.value);
+            context.handleChange(event, id);
+            (setValue ?? setState)(event.target.value);
 
             if (fieldData?.error) {
               const error = validateField({
                 data: fieldData,
-                key: props.id,
+                key: id,
                 value: event.target.value,
                 i18n: context.i18n,
               });
 
-              context.setFieldError(props.id, error);
+              context.setFieldError(id, error);
             }
           }}
-          defaultValue={props.defaultValue}
-          value={props.value ?? context.values[props.id]}
-          placeholder={props.placeholder /* ?? props.label */}
-          autocomplete={
-            props.autocomplete && createAutocompleteString(props.autocomplete)
-          }
+          defaultValue={defaultValue}
+          value={value ?? context.values[id]}
+          placeholder={placeholder /* ?? label */}
+          autocomplete={autocomplete && createAutocompleteString(autocomplete)}
           inputRef={ref}
-          {...props.inputProps}
-        />
+          {...inputProps}
+        >
+          {children}
+        </As>
         {err ? (
           <Box as="span" color="red.500" fontSize="sm" mt={5} marginLeft={1}>
             {/* @ts-ignore */}
             {typeof err === "string" ? err : err.toString() ?? "Invalid value"}
           </Box>
         ) : null}
-        {props.children}
       </Context.Provider>
     </FormControl>
   );
@@ -149,7 +167,7 @@ export function FormField<
  */
 export interface FormFieldProps<
   ComponentProps,
-  Component extends React.ComponentType<FormFieldInputProps>
+  Component extends React.ComponentType
 > {
   /**
    * Unique ID for this field.
@@ -214,9 +232,7 @@ export interface FormFieldProps<
    */
   schema?: SchemaValidator;
   as: ComponentType<ComponentProps>;
-  inputProps?: Component extends React.ComponentType<infer P>
-    ? P
-    : ComponentProps;
+  inputProps?: ComponentProps;
   value?: string;
   setValue?: (value: string) => void;
 }

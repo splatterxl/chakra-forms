@@ -11,9 +11,6 @@ export function FormSubmitButton(props: FormSubmitButtonProps) {
       type="submit"
       isLoading={props.loading}
       width="full"
-      onClick={() => {
-        formik.submitForm();
-      }}
     >
       {props.i18n ?? "Submit"}
     </Button>

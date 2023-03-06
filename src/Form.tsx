@@ -31,7 +31,7 @@ export interface FormContext {
   /**
    * The current values associated with a field.
    */
-  get values(): Record<string, string>;
+  get values(): Record<string, string | string[] | File[]>;
 
   /**
    * Global error associated with the form.
@@ -65,7 +65,7 @@ export interface FormContext {
    */
   setField: (
     id: string,
-    value: string,
+    value: string | File[] | string[],
     options?: FormContext["fields"]["string"]
   ) => void;
   /**
@@ -250,7 +250,7 @@ export function Form({
         {...props}
       >
         {children}
-        {!customButtons ? <FormButtons loading={formik.isSubmitting} /> : null}
+        {!customButtons ? <FormButtons /> : null}
       </Flex>
     </Context.Provider>
   );
