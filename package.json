@@ -10,8 +10,7 @@
   "license": "MIT",
   "packageManager": "yarn@3.4.1",
   "dependencies": {
-    "formik": "^2.2.9",
-    "react-icons": "^4.7.1"
+    "formik": "^2.2.9"
   },
   "peerDependencies": {
     "@chakra-ui/react": "^2.4.9",
