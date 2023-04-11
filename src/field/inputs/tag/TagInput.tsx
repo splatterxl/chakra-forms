@@ -35,6 +35,8 @@ export type ChakraTagInputProps = InputProps & {
   tagCloseButtonProps?: MaybeTagProps<TagCloseButtonProps>;
 
   maxItems?: number;
+
+  defaultValue?: string[];
 };
 
 export const TagInput = forwardRef(function ChakraTagInput(
@@ -44,6 +46,7 @@ export const TagInput = forwardRef(function ChakraTagInput(
     tagLabelProps,
     tagCloseButtonProps,
     maxItems = 50,
+    defaultValue = [],
     ...props
   }: ChakraTagInputProps,
   ref: ForwardedRef<HTMLInputElement>
@@ -51,7 +54,7 @@ export const TagInput = forwardRef(function ChakraTagInput(
   const formContext = useFormContext();
   const context = useFormFieldContext();
 
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(defaultValue);
 
   const addTag = useCallback(
     (event: SyntheticEvent, tag: string) => {
